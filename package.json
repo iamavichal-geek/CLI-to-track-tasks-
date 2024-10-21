@@ -1,0 +1,19 @@
+{
+  "name": "cli-todo",
+  "version": "1.0.0",
+  "description": "CLI app to track tasks",
+  "main": "index.js",
+  "module": "exports",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Avichal",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5",
+    "expresss": "^0.0.0",
+    "nodemon": "^3.1.7",
+    "pg": "^8.13.0"
+  }
+}
