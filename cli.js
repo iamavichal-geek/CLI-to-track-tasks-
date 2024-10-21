@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const {Command} = require("commander");
+import { Command } from "commander";
+import express from "express";
 
 const program = new Command();
 
