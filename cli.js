@@ -13,10 +13,10 @@ program
 program
 .command("start")
 .description("start the server...")
-.option('-p, --port <port>', 'Specify the port', '4000')
+.option('-a, --task <port>', 'Specify the task')
 .action((options)=>{
+    console.log(`task ${options.task} added.`);
     
-    console.log(`Server started...on port ${options.port}`);
 });
 
 program
