@@ -40,7 +40,7 @@ program
 .command("list")
 .description("Get all tasks.")
 .action(async ()=>{
-    const result = await db.query("SELECT task FROM tasks");
+    const result = await db.query("SELECT * FROM tasks");
 console.log("all tasks");
 console.log(result.rows);
 })
@@ -56,7 +56,7 @@ program
 const getCurrentTime = () => {
   const now = new Date();
   const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+  const month = String(now.getMonth() + 1).padStart(2, '0');
   const day = String(now.getDate()).padStart(2, '0');
   const hours = String(now.getHours()).padStart(2, '0');
   const minutes = String(now.getMinutes()).padStart(2, '0');
@@ -67,19 +67,29 @@ const getCurrentTime = () => {
 
 const currentTime = getCurrentTime();
     await db.query("INSERT INTO tasks(task, time) VALUES($1,$2)", [options.newTask, currentTime]);
-console.log(`Added task ${options.newTask} at ${currentTime}`);
+console.log(`Added task : ${options.newTask} at ${currentTime}`);
 
 });
 
 program
 .command("update")
-.description("Get all tasks.")
-.action(()=>{
-console.log("all tasks");
+.option('-u, --updateTask <updateTask>', 'Update a task.')
+.option('-id, --taskId <taskId>', 'ID of a task.')
+.description("Update a task.")
+.action(async(options)=>{
+    await db.query("UPDATE tasks SET task = ($1) WHERE id = ($2)", [options.updateTask, options.taskId]);
+console.log("Task updated successfully.");
 })
 
 
-
+program
+.command("delete")
+.option('-id, --taskId <taskId>', 'ID of a task.')
+.description("Delete a task.")
+.action(async(options)=>{
+await db.query("DELETE FROM tasks WHERE id = ($1)", [options.taskId]);
+console.log(`Task with id : ${options.taskId} deleted.`);
+})
 
 
 
